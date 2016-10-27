@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Implementation-Title: demo
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: igor
+Implementation-Vendor-Id: com.ughtu
+Created-By: IntelliJ IDEA
+Build-Jdk: 1.8.0_66
+Main-Class: com.ughtu.MainApplication
+

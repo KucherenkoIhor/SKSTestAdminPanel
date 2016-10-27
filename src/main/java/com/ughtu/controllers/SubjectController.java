@@ -2,14 +2,12 @@ package com.ughtu.controllers;
 
 import com.ughtu.models.Subject;
 import com.ughtu.repositories.SubjectRepository;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Created by igor on 25.10.16.
@@ -31,6 +29,12 @@ public class SubjectController {
     public String saveSubject(@ModelAttribute Subject subject) {
         subjectRepository.save(subject);
         return "redirect:subject";
+    }
+
+    @RequestMapping("/subject/delete/{id}")
+    public String delete(@PathVariable Long id){
+        subjectRepository.delete(id);
+        return "redirect:/subject";
     }
 
 }
