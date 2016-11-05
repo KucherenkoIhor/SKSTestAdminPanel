@@ -11,13 +11,8 @@ public class Subject {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
-    private String name;
 
-//    public Subject() {}
-//
-//    public Subject(String name) {
-//        this.name = name;
-//    }
+    private String name;
 
     public Long getId() {
         return id;

@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2
+        }
+    </style>
+    <title>Тесты</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<div class="container">
+    <div th:if="${not #lists.isEmpty(questions)}">
+        <table class="table table-striped">
+            <tr>
+                <th>Вопрос</th>
+                <th>Скрыть</th>
+                <th>К ответам</th>
+                <th>Удалить</th>
+            </tr>
+            <tr th:each="question : ${questions}">
+                <td th:text="${question.text}">Вопрос</td>
+                <td><a th:href="${'/results/' + question.id}">Скрыть</a></td>
+                <td><a th:href="${'/tests/' + question.id}">К ответам</a></td>
+                <td><a th:href="${'/tests/delete/' + question.id}">Удалить</a></td>
+            </tr>
+
+        </table>
+    </div>
+    <div>
+        <form action="#" th:action="@{/tests}" th:object="${question}" method="post">
+            <p>Вопрос: <input type="text" th:field="*{text}"/> <input type="submit" value="Добавить"/></p>
+        </form>
+    </div>
+</div>
+</body>
+</html>
