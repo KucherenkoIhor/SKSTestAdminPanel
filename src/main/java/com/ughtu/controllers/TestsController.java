@@ -2,10 +2,12 @@ package com.ughtu.controllers;
 
 import com.ughtu.models.Question;
 import com.ughtu.models.Subject;
+import com.ughtu.repositories.AnswerRepository;
 import com.ughtu.repositories.QuestionRepository;
 import com.ughtu.repositories.SubjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +22,8 @@ public class TestsController  {
 
     @Autowired
     private QuestionRepository questionRepository;
+    @Autowired
+    private AnswerRepository answerRepository;
 
     private Long subjectId = 0L;
 
@@ -38,9 +42,11 @@ public class TestsController  {
         return "redirect:/tests/" + subjectId;
     }
 
+    @Transactional
     @RequestMapping("/tests/delete/{id}")
     public String delete(@PathVariable Long id){
         questionRepository.delete(id);
+        answerRepository.removeByQuestionId(id);
         return "redirect:/tests/" + subjectId;
     }
 

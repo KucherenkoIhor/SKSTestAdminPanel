@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2
+        }
+    </style>
+    <title>Ответы</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<div class="container">
+    <div th:if="${not #lists.isEmpty(answers)}">
+        <table class="table table-striped">
+            <tr>
+                <th>Ответ</th>
+                <th>Правильный</th>
+                <th>Удалить</th>
+            </tr>
+            <tr th:each="answer : ${answers}">
+                <td th:text="${answer.text}">Ответ</td>
+                <td th:text="${answer.isCorrect}">Правильный</td>
+                <td><a th:href="${'/answers/delete/' + answer.id}">Удалить</a></td>
+            </tr>
+
+        </table>
+    </div>
+    <div>
+        <form action="#" th:action="@{/answers/add/correct}" th:object="${answer}" method="post">
+            <p>Добавить правильный ответ: <input type="text" th:field="*{text}"/> <input type="submit" value="Добавить"/></p>
+        </form>
+    </div>
+    <div>
+        <form action="#" th:action="@{/answers/add/incorrect}" th:object="${answer}" method="post">
+            <p>Добавить неправильный ответ: <input type="text" th:field="*{text}"/> <input type="submit" value="Добавить"/></p>
+        </form>
+    </div>
+</div>
+</body>
+</html>

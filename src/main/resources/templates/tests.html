@@ -37,7 +37,7 @@
             <tr th:each="question : ${questions}">
                 <td th:text="${question.text}">Вопрос</td>
                 <td><a th:href="${'/results/' + question.id}">Скрыть</a></td>
-                <td><a th:href="${'/tests/' + question.id}">К ответам</a></td>
+                <td><a th:href="${'/answers/' + question.id}">К ответам</a></td>
                 <td><a th:href="${'/tests/delete/' + question.id}">Удалить</a></td>
             </tr>
 

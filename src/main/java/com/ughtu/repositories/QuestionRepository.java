@@ -13,4 +13,7 @@ public interface QuestionRepository extends CrudRepository<Question, Long> {
 
     List<Question> findBySubjectId(Long subjectId);
 
+
+    List<Question> removeBySubjectId(Long subjectId);
+
 }
