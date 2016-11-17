@@ -37,6 +37,7 @@
             </tr>
             <tr th:each="subject : ${subjects}">
                 <td th:text="${subject.name}">Курс</td>
+                <!--<td><a th:href="${'/results/' + subject.id}">К результатам</a></td>-->
                 <td><a th:href="${'/results/' + subject.id}">К результатам</a></td>
                 <td><a th:href="${'/tests/' + subject.id}">К тестам</a></td>
                 <td><a th:href="${'/subject/delete/' + subject.id}">Удалить</a></td>
