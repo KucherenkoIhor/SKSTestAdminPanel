@@ -36,7 +36,7 @@
             </tr>
             <tr th:each="question : ${questions}">
                 <td th:text="${question.text}">Вопрос</td>
-                <td><a th:href="${'/results/' + question.id}">Скрыть</a></td>
+                <td><input type="checkbox" th:checked="*{question.isHidden}"/> </td>
                 <td><a th:href="${'/answers/' + question.id}">К ответам</a></td>
                 <td><a th:href="${'/tests/delete/' + question.id}">Удалить</a></td>
             </tr>
@@ -47,6 +47,9 @@
         <form action="#" th:action="@{/tests}" th:object="${question}" method="post">
             <p>Вопрос: <input type="text" th:field="*{text}"/> <input type="submit" value="Добавить"/></p>
         </form>
+    </div>
+    <div>
+        <a th:href="${'/subject'}">На главную</a>
     </div>
 </div>
 </body>

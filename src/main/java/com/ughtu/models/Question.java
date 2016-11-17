@@ -1,5 +1,7 @@
 package com.ughtu.models;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,6 +14,8 @@ import javax.persistence.Id;
 public class Question {
 
     private Long subjectId;
+
+    private Boolean isHidden;
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
@@ -30,6 +34,14 @@ public class Question {
     }
 
     private String text;
+
+    public Boolean getIsHidden() {
+        return isHidden;
+    }
+
+    public void setIsHidden(Boolean hidden) {
+        isHidden = hidden;
+    }
 
     public String getText() {
         return text;
