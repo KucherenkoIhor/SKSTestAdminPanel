@@ -52,5 +52,4 @@ public class AnswersController {
         return "redirect:/answers/" + questionId;
     }
 
-
 }

@@ -1,8 +1,30 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2
+        }
+    </style>
+
     <!--Load the AJAX API-->
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <!--<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>-->
     <script type="text/javascript" th:inline="javascript">
         /*<![CDATA[*/
 
@@ -78,5 +100,37 @@
 <body>
 <!--Div that will hold the pie chart-->
     <div id="chart_div"></div>
+
+<div class="container">
+    <div th:if="${not #lists.isEmpty(results)}">
+        <h2>Результаты</h2>
+        <table class="table table-striped">
+            <tr>
+                <th>Год</th>
+                <th>Группа</th>
+                <th>Оценка</th>
+                <th>Удалить</th>
+            </tr>
+            <tr th:each="result : ${results}">
+                <td th:text="${result.year}">Год</td>
+                <td th:text="${result.groupName}">Группа</td>
+                <td th:text="${result.value}">Оценка</td>
+                <td><a th:href="${'/results/delete/' + result.id}">Удалить</a></td>
+            </tr>
+
+        </table>
+    </div>
+    <div>
+        <form action="#" th:action="@{/results}" th:object="${result}" method="post">
+            <p>Год: <input type="text" th:field="*{year}"/></p>
+            <p>Группа: <input type="text" th:field="*{groupName}"/></p>
+            <p>Оценка: <input type="text" th:field="*{value}"/></p>
+            <p><input type="submit" value="Добавить"/></p>
+        </form>
+    </div>
+    <div>
+        <a th:href="${'/subject'}">На главную</a>
+    </div>
+</div>
 </body>
 </html>

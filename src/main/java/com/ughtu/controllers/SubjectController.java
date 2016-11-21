@@ -4,6 +4,7 @@ import com.ughtu.models.Question;
 import com.ughtu.models.Subject;
 import com.ughtu.repositories.AnswerRepository;
 import com.ughtu.repositories.QuestionRepository;
+import com.ughtu.repositories.ResultRepository;
 import com.ughtu.repositories.SubjectRepository;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,8 @@ public class SubjectController {
     private QuestionRepository questionRepository;
     @Autowired
     private AnswerRepository answerRepository;
+    @Autowired
+    private ResultRepository resultRepository;
 
     @RequestMapping(value = "/subject")
     public String subject(Model model) {
@@ -49,6 +52,7 @@ public class SubjectController {
         for (Question question : questions) {
             answerRepository.removeByQuestionId(question.getId());
         }
+        resultRepository.removeBySubjectId(id);
         return "redirect:/subject";
     }
 
