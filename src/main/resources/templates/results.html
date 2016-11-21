@@ -6,76 +6,67 @@
     <script type="text/javascript" th:inline="javascript">
         /*<![CDATA[*/
 
-        // Load the Visualization API and the piechart package.
         google.charts.load('current', {'packages':['corechart']});
 
-        // Set a callback to run when the Google Visualization API is loaded.
         google.charts.setOnLoadCallback(drawChart);
-
-//        $.ajax({
-//            url: "list",
-//            dataType: "json",
-//            success: function (jsonData) {
-//                var data = new google.visualization.DataTable();
-//                // assumes "word" is a string and "count" is a number
-//                data.addColumn('string', 'word');
-//                data.addColumn('number', 'count');
-//
-//                for (var i = 0; i < jsonData.length; i++) {
-//                    data.addRow([jsonData[i].word, jsonData[i].count]);
-//                }
-//
-//                var options = {
-//                    title: 'Certificate details',
-//                    is3D: true
-//                };
-//                var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
-//                chart.draw(data, options);
-//            }
-//        });
 
         function drawChart() {
 
             var results = [[${results}]];
 
+            var columns = [];
+            var rows = [];
+            var years = [];
 
-           /// alert('' + message);
-           /// console.log(message);
-
-//            var jsonData = $.ajax({
-//                url: "/json",
-//                dataType: "json",
-//                async: false
-//            }).responseText;
-//
-//            // Create our data table out of JSON data loaded from server.
             var data = new google.visualization.DataTable();
 
-      //      for (var i = 0; i < 2; i++) {
-      //          data.addColumn('number', 'СКС-' + i);
-      //      }
-
             data.addColumn('string', 'Год');
-            data.addColumn('number', 'СКС-8');
-            data.addColumn('number', 'ИС-7');
 
-            for (var i = 0; i < 5; i++) {
-                data.addRow(['2012', i, i * 6]);
+            var i;
+            for (i = 0; i < results.length; i++) {
+                if(columns.indexOf(results[i].groupName) == -1) {
+                    columns.push(results[i].groupName);
+                }
             }
-//
-//            data.addColumn('number', 'Год');
-//            data.addColumn('number', 'СКС-8');
-//            data.addColumn('number', 'ИС-7');
-//            data.addRows([
-//                [2012, 1, 6],
-//                [2013, 1, 5],
-//                [2014, 2, 9],
-//                [2015, 2, 90],
-//                [2016, 1, 30]
-//            ]);
+            for (i = 0; i < columns.length; i++) {
+                data.addColumn('number', columns[i]);
+            }
+            for (i = 0; i < results.length; i++) {
+                if(years.indexOf(results[i].year) == -1) {
+                    years.push(results[i].year);
+                }
+            }
+            for (i = 0; i < years.length; i++) {
+                var row = [];
+                row[0] = years[i];
+                console.log(years[i]);
+                for (var j = 0; j < results.length; j++) {
+                    if(results[j].year == years[i]) {
+                        for(var k = 0; k < columns.length; k ++) {
+                            if (results[j].groupName == columns[k]) {
+                                console.log('group: ' + columns[k] + ' value: ' + results[j].value);
+                                row[k + 1] = results[j].value;
+                            }
+                            if (row[k + 1] === undefined || row[k + 1] === null) {
+                                row[k + 1] = 0;
+                            }
+                            if(rows.indexOf(row) == -1) {
+                                rows.push(row);
+                            }
+                        }
+                    }
+                }
+            }
 
+            columns.forEach(function (item) {
+                console.log(item);
+            })
 
-            // Instantiate and draw our chart, passing in some options.
+            for (i = 0; i < rows.length; i++) {
+                console.log(rows[i]);
+                data.addRow(rows[i]);
+            }
+
             var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
 
             chart.draw(data, {width: 1000, height: 600});

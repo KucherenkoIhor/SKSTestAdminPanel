@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by igor on 17.11.16.
@@ -25,14 +26,56 @@ public class ResultsController {
     @RequestMapping(value = "/results/{subjectId}")
     public String results(Model model, @PathVariable Long subjectId) {
 
-        for(int i = 0; i < 10; i ++) {
-            Result result = new Result();
-            result.setSubjectId(subjectId);
-            result.setGroupName("CКС - 8");
-            result.setValue(30 * i);
-            result.setYear("2012");
-            resultRepository.save(result);
-        }
+        Result result = new Result();
+        result.setSubjectId(subjectId);
+        result.setGroupName("CКС - 6");
+        result.setValue(59);
+        result.setYear("2011");
+        resultRepository.save(result);
+
+
+        Result result1 = new Result();
+        result1.setSubjectId(subjectId);
+        result1.setGroupName("ИС - 60");
+        result1.setValue(54);
+        result1.setYear("2011");
+        resultRepository.save(result1);
+
+
+        Result result2 = new Result();
+        result2.setSubjectId(subjectId);
+        result2.setGroupName("CКС - 6");
+        result2.setValue(60);
+        result2.setYear("2013");
+        resultRepository.save(result2);
+
+        Result result6 = new Result();
+        result6.setSubjectId(subjectId);
+        result6.setGroupName("CКС - 1");
+        result6.setValue(23);
+        result6.setYear("2013");
+        resultRepository.save(result6);
+
+        Result result8 = new Result();
+        result8.setSubjectId(subjectId);
+        result8.setGroupName("CКС - 1");
+        result8.setValue(79);
+        result8.setYear("2015");
+        resultRepository.save(result8);
+
+        Result result7 = new Result();
+        result7.setSubjectId(subjectId);
+        result7.setGroupName("CКС - 1");
+        result7.setValue(76);
+        result7.setYear("2011");
+        resultRepository.save(result7);
+
+        Result result3 = new Result();
+        result3.setSubjectId(subjectId);
+        result3.setGroupName("ИС - 60");
+        result3.setValue(89);
+        result3.setYear("2013");
+        resultRepository.save(result3);
 
         List<Result> results = resultRepository.findBySubjectId(subjectId);
         model.addAttribute("results", results);
