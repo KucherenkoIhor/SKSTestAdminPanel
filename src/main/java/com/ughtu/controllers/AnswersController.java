@@ -5,6 +5,7 @@ import com.ughtu.models.Answer;
 import com.ughtu.models.Question;
 import com.ughtu.models.Subject;
 import com.ughtu.repositories.AnswerRepository;
+import com.ughtu.repositories.LecturesRepository;
 import com.ughtu.repositories.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,12 +20,16 @@ public class AnswersController {
 
     @Autowired
     private AnswerRepository answerRepository;
+    @Autowired
+    private QuestionRepository questionRepository;
 
     private Long questionId = 0L;
 
     @RequestMapping("/answers/{questionId}")
     public String answersByQuestionId(Model model, @PathVariable Long questionId) {
         this.questionId = questionId;
+        long lectureId = questionRepository.findOne(questionId).getLectureId();
+        model.addAttribute("lecture", lectureId);
         model.addAttribute("answer", new Answer());
         model.addAttribute("answers", answerRepository.findByQuestionId(questionId));
         return "answers";

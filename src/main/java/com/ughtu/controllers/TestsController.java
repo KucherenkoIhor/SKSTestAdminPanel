@@ -3,6 +3,7 @@ package com.ughtu.controllers;
 import com.ughtu.models.Question;
 import com.ughtu.models.Subject;
 import com.ughtu.repositories.AnswerRepository;
+import com.ughtu.repositories.LecturesRepository;
 import com.ughtu.repositories.QuestionRepository;
 import com.ughtu.repositories.SubjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,22 +25,26 @@ public class TestsController  {
     private QuestionRepository questionRepository;
     @Autowired
     private AnswerRepository answerRepository;
+    @Autowired
+    private LecturesRepository lecturesRepository;
 
-    private Long subjectId = 0L;
+    private Long lectureId = 0L;
 
-    @RequestMapping("/tests/{subjectId}")
-    public String testBySubjectId(Model model, @PathVariable Long subjectId) {
-        this.subjectId = subjectId;
+    @RequestMapping("/tests/{lectureId}")
+    public String testByLectureId(Model model, @PathVariable Long lectureId) {
+        this.lectureId = lectureId;
+        long subjectId = lecturesRepository.findOne(lectureId).getSubjectId();
+        model.addAttribute("subject", subjectId);
         model.addAttribute("question", new Question());
-        model.addAttribute("questions", questionRepository.findBySubjectId(subjectId));
+        model.addAttribute("questions", questionRepository.findByLectureId(lectureId));
         return "tests";
     }
 
     @RequestMapping(value = "/tests", method = RequestMethod.POST)
     public String saveSubject(@ModelAttribute Question question) {
-        question.setSubjectId(subjectId);
+        question.setLectureId(lectureId);
         questionRepository.save(question);
-        return "redirect:/tests/" + subjectId;
+        return "redirect:/tests/" + lectureId;
     }
 
     @Transactional
@@ -47,8 +52,7 @@ public class TestsController  {
     public String delete(@PathVariable Long id){
         questionRepository.delete(id);
         answerRepository.removeByQuestionId(id);
-        return "redirect:/tests/" + subjectId;
+        return "redirect:/tests/" + lectureId;
     }
-
 
 }

@@ -13,8 +13,8 @@ import java.util.List;
  */
 public interface ResultRepository extends CrudRepository<Result, Long> {
 
-    List<Result> findBySubjectId(Long subjectId);
+    List<Result> findByLectureId(Long lectureId);
 
-    List<Result> removeBySubjectId(Long subjectId);
+    List<Result> removeByLectureId(Long lectureId);
 
 }

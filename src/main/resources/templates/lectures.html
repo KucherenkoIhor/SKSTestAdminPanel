@@ -21,38 +21,35 @@
             background-color: #f2f2f2
         }
     </style>
-    <title>Тесты</title>
+    <title>Лекции</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
 <div class="container">
-    <div th:if="${not #lists.isEmpty(questions)}">
+    <div th:if="${not #lists.isEmpty(lectures)}">
         <table class="table table-striped">
             <tr>
-                <th>Вопрос</th>
-                <th>Скрыть</th>
-                <th>К ответам</th>
+                <th>Название</th>
+                <th>К тестам</th>
+                <th>К результатам</th>
                 <th>Удалить</th>
             </tr>
-            <tr th:each="question : ${questions}">
-                <td th:text="${question.text}">Вопрос</td>
-                <td><input type="checkbox" th:checked="*{question.isHidden}"/> </td>
-                <td><a th:href="${'/answers/' + question.id}">К ответам</a></td>
-                <td><a th:href="${'/tests/delete/' + question.id}">Удалить</a></td>
+            <tr th:each="lecture : ${lectures}">
+                <td th:text="${lecture.name}">Название</td>
+                <td><a th:href="${'/tests/' + lecture.id}">К тестам</a></td>
+                <td><a th:href="${'/results/' + lecture.id}">К результатам</a></td>
+                <td><a th:href="${'/lectures/delete/' + lecture.id}">Удалить</a></td>
             </tr>
 
         </table>
     </div>
     <div>
-        <form action="#" th:action="@{/tests}" th:object="${question}" method="post">
-            <p>Вопрос: <input type="text" th:field="*{text}"/> <input type="submit" value="Добавить"/></p>
+        <form action="#" th:action="@{/lectures}" th:object="${lecture}" method="post">
+            <p>Лекция: <input type="text" th:field="*{name}"/> <input type="submit" value="Добавить"/></p>
         </form>
     </div>
     <div>
         <a th:href="${'/subject'}">На главную</a>
-    </div>
-    <div>
-        <a th:href="${'/lectures/' + subject}">Назад</a>
     </div>
 </div>
 </body>

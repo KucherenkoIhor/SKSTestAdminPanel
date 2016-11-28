@@ -17,7 +17,7 @@ public class Result {
 
     private String groupName;
 
-    private Long subjectId;
+    private Long lectureId;
 
     private String year;
 
@@ -27,12 +27,12 @@ public class Result {
         return id;
     }
 
-    public Long getSubjectId() {
-        return subjectId;
+    public Long getLectureId() {
+        return lectureId;
     }
 
-    public void setSubjectId(Long subjectId) {
-        this.subjectId = subjectId;
+    public void setLectureId(Long lectureId) {
+        this.lectureId = lectureId;
     }
 
     public String getGroupName() {

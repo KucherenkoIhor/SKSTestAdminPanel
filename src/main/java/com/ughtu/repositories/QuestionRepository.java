@@ -11,9 +11,9 @@ import java.util.List;
  */
 public interface QuestionRepository extends CrudRepository<Question, Long> {
 
-    List<Question> findBySubjectId(Long subjectId);
+    List<Question> findByLectureId(Long lectureId);
 
 
-    List<Question> removeBySubjectId(Long subjectId);
+    List<Question> removeByLectureId(Long lectureId);
 
 }

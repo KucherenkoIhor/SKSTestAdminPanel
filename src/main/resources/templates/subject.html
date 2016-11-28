@@ -31,15 +31,16 @@
         <table class="table table-striped">
             <tr>
                 <th>Курс</th>
-                <th>К результатам</th>
-                <th>К тестам</th>
+                <!--<th>К результатам</th>-->
+                <th>К лекциям</th>
                 <th>Удалить</th>
             </tr>
             <tr th:each="subject : ${subjects}">
                 <td th:text="${subject.name}">Курс</td>
                 <!--<td><a th:href="${'/results/' + subject.id}">К результатам</a></td>-->
-                <td><a th:href="${'/results/' + subject.id}">К результатам</a></td>
-                <td><a th:href="${'/tests/' + subject.id}">К тестам</a></td>
+                <!--<td><a th:href="${'/results/' + subject.id}">К результатам</a></td>-->
+                <!--<td><a th:href="${'/tests/' + subject.id}">К тестам</a></td>-->
+                <td><a th:href="${'/lectures/' + subject.id}">К лекциям</a></td>
                 <td><a th:href="${'/subject/delete/' + subject.id}">Удалить</a></td>
             </tr>
 

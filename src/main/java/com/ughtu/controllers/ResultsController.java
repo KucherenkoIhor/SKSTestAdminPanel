@@ -22,12 +22,12 @@ public class ResultsController {
     @Autowired
     private ResultRepository resultRepository;
 
-    private long mSubjectId;
+    private long mLectureId;
 
-    @RequestMapping(value = "/results/{subjectId}")
-    public String results(Model model, @PathVariable Long subjectId) {
-        mSubjectId = subjectId;
-        List<Result> results = resultRepository.findBySubjectId(subjectId);
+    @RequestMapping(value = "/results/{lectureId}")
+    public String results(Model model, @PathVariable Long lectureId) {
+        mLectureId = lectureId;
+        List<Result> results = resultRepository.findByLectureId(lectureId);
         model.addAttribute("results", results);
         model.addAttribute("result", new Result());
         return "results";
@@ -35,15 +35,15 @@ public class ResultsController {
 
     @RequestMapping(value = "/results", method = RequestMethod.POST)
     public String save(@ModelAttribute Result result) {
-        result.setSubjectId(mSubjectId);
+        result.setLectureId(mLectureId);
         resultRepository.save(result);
-        return "redirect:/results/" + mSubjectId;
+        return "redirect:/results/" + mLectureId;
     }
 
     @RequestMapping("/results/delete/{id}")
     public String delete(@PathVariable Long id){
         resultRepository.delete(id);
-        return "redirect:/results/" + mSubjectId;
+        return "redirect:/results/" + mLectureId;
     }
 
 }

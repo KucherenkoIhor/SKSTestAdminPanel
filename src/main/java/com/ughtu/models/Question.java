@@ -13,7 +13,7 @@ import javax.persistence.Id;
 @Entity
 public class Question {
 
-    private Long subjectId;
+    private Long lectureId;
 
     private Boolean isHidden;
 
@@ -21,12 +21,12 @@ public class Question {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
 
-    public Long getSubjectId() {
-        return subjectId;
+    public Long getLectureId() {
+        return lectureId;
     }
 
-    public void setSubjectId(Long subjectId) {
-        this.subjectId = subjectId;
+    public void setLectureId(Long lectureId) {
+        this.lectureId = lectureId;
     }
 
     public Long getId() {

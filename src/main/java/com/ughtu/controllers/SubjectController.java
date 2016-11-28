@@ -1,11 +1,9 @@
 package com.ughtu.controllers;
 
+import com.ughtu.models.Lecture;
 import com.ughtu.models.Question;
 import com.ughtu.models.Subject;
-import com.ughtu.repositories.AnswerRepository;
-import com.ughtu.repositories.QuestionRepository;
-import com.ughtu.repositories.ResultRepository;
-import com.ughtu.repositories.SubjectRepository;
+import com.ughtu.repositories.*;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,6 +28,8 @@ public class SubjectController {
     private AnswerRepository answerRepository;
     @Autowired
     private ResultRepository resultRepository;
+    @Autowired
+    private LecturesRepository lecturesRepository;
 
     @RequestMapping(value = "/subject")
     public String subject(Model model) {
@@ -48,11 +48,14 @@ public class SubjectController {
     @RequestMapping("/subject/delete/{id}")
     public String delete(@PathVariable Long id){
         subjectRepository.delete(id);
-        List<Question> questions = questionRepository.removeBySubjectId(id);
-        for (Question question : questions) {
-            answerRepository.removeByQuestionId(question.getId());
-        }
-        resultRepository.removeBySubjectId(id);
+        List<Lecture> lectures = lecturesRepository.removeBySubjectId(id);
+        lectures.forEach(lecture -> {
+            resultRepository.removeByLectureId(lecture.getId());
+            List<Question> questions = questionRepository.removeByLectureId(lecture.getId());
+            for (Question question : questions) {
+                answerRepository.removeByQuestionId(question.getId());
+            }
+        });
         return "redirect:/subject";
     }
 
