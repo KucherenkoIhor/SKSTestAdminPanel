@@ -56,7 +56,7 @@ public class ApiController {
     }
 
     @RequestMapping(
-            path = "/api/lectures",
+            path = "/api/lectures/{subjectId}",
             method =  RequestMethod.GET)
     public @ResponseBody List<Lecture> getLectures(@RequestParam(value="subjectId") Long subjectId) {
         List<Lecture> result = new ArrayList<>();
